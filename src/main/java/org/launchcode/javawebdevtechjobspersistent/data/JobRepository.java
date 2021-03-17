@@ -1,4 +1,4 @@
-package org.launchcode.javawebdevtechjobspersistent.models.data;
+package org.launchcode.javawebdevtechjobspersistent.data;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Job;
 import org.springframework.data.repository.CrudRepository;

@@ -1,5 +1,7 @@
 package org.launchcode.javawebdevtechjobspersistent.models;
 
+
+
 import javax.persistence.*;
 
 @Entity
