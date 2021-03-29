@@ -1,7 +1,7 @@
 package org.launchcode.javawebdevtechjobspersistent.controllers;
 
 import org.launchcode.javawebdevtechjobspersistent.models.Skill;
-import org.launchcode.javawebdevtechjobspersistent.data.SkillRepository;
+import org.launchcode.javawebdevtechjobspersistent.models.data.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("skill")
+@RequestMapping("skills")
 public class SkillController {
 
     @Autowired
@@ -20,7 +20,14 @@ public class SkillController {
 
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
+        model.addAttribute("title", "Add Skill");
         model.addAttribute(new Skill());
+        model.addAttribute("skills", skillRepository.findAll());
+        return "skills/add";
+    }
+
+    @GetMapping
+    public String displayAllSkills(Model model){
         model.addAttribute("skills", skillRepository.findAll());
         return "skills/index";
     }
@@ -29,10 +36,11 @@ public class SkillController {
     public String processAddSkillForm(@ModelAttribute @Valid Skill newSkill,
                                          Errors errors, Model model) {
         if (errors.hasErrors()) {
+            model.addAttribute("title", "Add Skill");
             return "skills/add";
         }
         skillRepository.save(newSkill);
-        return "redirect:";
+        return "redirect:/skills";
     }
 
     @GetMapping("view/{skillId}")
@@ -42,11 +50,11 @@ public class SkillController {
         if (optSkill.isPresent()) {
             Skill skill = (Skill) optSkill.get();
             model.addAttribute("skill", skill);
+            model.addAttribute("description", skill.getDescription());
+            model.addAttribute("name", skill.getName());
             return "skills/view";
         } else {
             return "redirect:../";
         }
     }
-
-
 }
