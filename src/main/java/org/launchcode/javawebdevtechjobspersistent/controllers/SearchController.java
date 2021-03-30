@@ -23,17 +23,11 @@ public class SearchController {
     @Autowired
     private JobRepository jobRepository;
 
-    @Autowired
-    private EmployerRepository employerRepository;
-
-    @Autowired
-    private SkillRepository skillRepository;
-
-    @RequestMapping("")
+    @RequestMapping("")// method handled at /search
     public String search(Model model) {
-//        model.addAttribute("jobs", jobRepository.findAll());
-        model.addAttribute("employers", employerRepository.findAll());
-        model.addAttribute("skills", skillRepository.findAll());
+        model.addAttribute("columns", columnChoices);//would not make sense to use skill or employerRepository
+        // here because we are searching "byColumn" and "byColumnAndValue"
+
         return "search";
     }
 

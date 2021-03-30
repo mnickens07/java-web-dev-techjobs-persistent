@@ -55,6 +55,7 @@ public class ListController {
         if (column.toLowerCase().equals("all")){
             jobs = jobRepository.findAll();
             model.addAttribute("title", "All Jobs");
+            model.addAttribute("jobs",jobs);
         } else {
             jobs = JobData.findByColumnAndValue(column, value, jobRepository.findAll());
             model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
@@ -64,3 +65,4 @@ public class ListController {
         return "list-jobs";
     }
 }
+//The reason I kept getting the Null point exception is because since my tables werent set up correctly before, they were saving null values into my database and then the methods from JobData were attempting to call a met
